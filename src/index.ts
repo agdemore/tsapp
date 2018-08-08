@@ -4,6 +4,8 @@ import { homeController } from "./home/server";
 
 const app = express();
 
+// TODO serve static
+
 app.get("/", homeController);
 
 app.listen(5656, () =>
