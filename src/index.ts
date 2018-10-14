@@ -1,11 +1,13 @@
-import express from "express";
+import express from 'express';
 
-import { homeController } from "./home/server";
+import { homeController } from './modules/home/server';
 
 const app = express();
 
-app.get("/", homeController);
+app.use('/assets', express.static('assets'));
+
+app.get('/', homeController);
 
 app.listen(5656, () =>
-  console.log("server is running on http://localhost:5656")
+  console.log('server is running on http://localhost:5656')
 );
