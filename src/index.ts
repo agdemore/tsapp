@@ -1,6 +1,6 @@
 import express from 'express';
 
-import { homeController } from './home/server';
+import { homeController } from './modules/home/server';
 
 const app = express();
 

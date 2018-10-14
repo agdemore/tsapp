@@ -1,28 +1,28 @@
-import * as React from 'react';
-import { renderToStaticMarkup } from 'react-dom/server';
+import {Store} from 'redux';
+import {AppState, AppAction} from '../modules/common-store';
 
 export function getHtml(
-  title: string,
-  module: string,
-  component: JSX.Element
+  title: string = '',
+  componentName: string,
+  content: string,
+  store: Store<AppState, AppAction>
 ): string {
-  const content = renderToStaticMarkup(component);
   return `
-    <!DOCTYPE html>
-      <html lang="en">
-      <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>${title}</title>
-      </head>
-      <body>
-        <div id="root">
-          ${content}
-        </div>
+  <!DOCTYPE html>
+  <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta http-equiv="X-UA-Compatible" content="ie=edge">
+      <!-- <link rel="stylesheet" href=${componentName + '-layout.css'} /> -->
+      <title>${title}</title>
+    </head>
+    <body>
+      ${content}
 
-        <script src="assets/${module}/client.js"></script>
-      </body>
-    </html>
+      <script>var __state = ${JSON.stringify(store.getState())}</script>
+      <!-- <script src="assets/${componentName + '-client.js'}"></script> -->
+    </body>
+  </html>
   `;
 }
